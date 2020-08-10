@@ -10,7 +10,7 @@ DemoInfoReturnCode getDemoInfo(const std::string path, DemoInfo & demoInfo)
     // See https://developer.valvesoftware.com/wiki/Demo
     // for information about the file format
     std::ifstream file;
-    file.open(path, std::ios::binary | std::ios::in);
+    file.open(path, std::ios::binary);
 
     char buf[261];
     if (!file.is_open()) {
@@ -30,9 +30,10 @@ DemoInfoReturnCode getDemoInfo(const std::string path, DemoInfo & demoInfo)
     demoInfo.clientName = buf;
     file.read(buf, 260);
     demoInfo.mapName = buf;
-    file.seekg(260);
-    file.read((char *)(& demoInfo.playbackTime), sizeof (float));
-    file.read((char *)(& demoInfo.numTicks), sizeof (int));
+    // skip reading the game directory
+    file.seekg(260, file.cur);
+    file.read((char *) & demoInfo.playbackTime, sizeof (demoInfo.playbackTime));
+    file.read((char *) & demoInfo.numTicks, sizeof (demoInfo.numTicks));
     demoInfo.fileName = path;
     file.close();
     return SUCCESS;
