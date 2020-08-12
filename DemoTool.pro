@@ -18,16 +18,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     hldemo.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    src/hldemo.cpp \
+    src/main.cpp \
+    src/mainwindow.cpp
 
 HEADERS += \
     hldemo.h \
-    mainwindow.h
+    include/json.hpp \
+    mainwindow.h \
+    src/hldemo.h \
+    src/mainwindow.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    src/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    TODO \
+    include/include.zip

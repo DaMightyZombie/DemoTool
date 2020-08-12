@@ -35,6 +35,7 @@ DemoInfoReturnCode getDemoInfo(const std::string path, DemoInfo & demoInfo)
     file.read((char *) & demoInfo.playbackTime, sizeof (demoInfo.playbackTime));
     file.read((char *) & demoInfo.numTicks, sizeof (demoInfo.numTicks));
     demoInfo.fileName = path;
+
     file.close();
     return SUCCESS;
 }
