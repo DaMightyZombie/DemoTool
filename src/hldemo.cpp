@@ -63,7 +63,14 @@ void HLDemo::LoadEvents()
     std::ifstream file;
     json j;
     file.open(jsonPath);
-    file >> j;
+    try {
+        file >> j;
+    } catch (json::parse_error) {
+        // A malformed json file is handled like it wasn't there.
+        file.close();
+        this->events.clear();
+        return;
+    }
     file.close();
 
     this->events.clear();
@@ -72,8 +79,11 @@ void HLDemo::LoadEvents()
         if (event["name"] == "Killstreak") {
             newEvent.type = Killstreak;
         }
-        else {
+        else if (event["name"] == "Bookmark"){
             newEvent.type = Bookmark;
+        }
+        else {
+            continue;
         }
         newEvent.value = event["value"];
         newEvent.tick = event["tick"];
@@ -88,14 +98,15 @@ std::vector<HLDemo> getDemosInDirectory(const std::string path)
     for (const auto & entry : fs::directory_iterator(path)){
         if (entry.path().extension() == ".dem"){
             HLDemo demo;
-            demo.open(entry.path());
-            demos.push_back(demo);
+            if (demo.open(entry.path()) == SUCCESS) {
+                demos.push_back(demo);
+            }
         }
     }
     return demos;
 }
 
-std::string HLDemo::GetFileName(){return this->fileName;}
+fs::path HLDemo::GetFileName(){return this->fileName;}
 std::string HLDemo::GetMapName(){return this->mapName;}
 std::string HLDemo::GetClientName(){return this->clientName;}
 std::string HLDemo::GetServerName(){return this->serverName;}
