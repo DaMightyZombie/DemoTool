@@ -41,7 +41,7 @@ public:
      */
     DemoInfoReturnCode open(std::string path);
 
-    std::string GetFileName();
+    fs::path GetFileName();
     std::string GetMapName();
     std::string GetClientName();
     std::string GetServerName();
@@ -61,6 +61,5 @@ private:
 };
 
 std::vector<HLDemo> getDemosInDirectory(const std::string path);
-
 }
 #endif // HLDEMO_H
