@@ -68,17 +68,17 @@ void HLDemo::LoadEvents()
 
     this->events.clear();
     for (auto event : j["events"]) {
-        DemoEvent _event;
+        DemoEvent newEvent;
         if (event["name"] == "Killstreak") {
-            _event.type = Killstreak;
+            newEvent.type = Killstreak;
         }
         else {
-            _event.type = Bookmark;
+            newEvent.type = Bookmark;
         }
-        _event.value = event["value"];
-        _event.tick = event["tick"];
+        newEvent.value = event["value"];
+        newEvent.tick = event["tick"];
 
-        this->events.push_back(_event);
+        this->events.push_back(newEvent);
     }
 }
 
