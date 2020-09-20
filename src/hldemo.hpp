@@ -1,33 +1,66 @@
 #ifndef HLDEMO_H
 #define HLDEMO_H
 #include <string>
+#include <vector>
 #include <iostream>
-#include <QFile>
+#include <filesystem>
+
+namespace fs = std::filesystem;
+
 
 namespace HLDemo
 {
-    /*!
-     * \brief Holds Information about a Source engine demo file.
-     */
-    struct DemoInfo
-    {
-        std::string fileName;
-        std::string mapName;
-        std::string clientName;
-        std::string serverName;
-        float playbackTime;
-        int numTicks;
-    };
-    enum DemoInfoReturnCode
-    {
-        SUCCESS = 0,
-        FILE_NOT_FOUND,
-        INVALID_FILE
-    };
+enum DemoInfoReturnCode
+{
+    SUCCESS = 0,
+    FILE_NOT_FOUND,
+    INVALID_FILE
+};
+
+enum DemoEventType
+{
+    Killstreak,
+    Bookmark
+};
+
+struct DemoEvent
+{
+    int tick;
+    DemoEventType type;
+    std::string value;
+};
+
+class HLDemo
+{
+public:
+    HLDemo();
+
     /*!
      * \brief Fetches metadata of a Source engine demo file.
      * \param path path to the demo file
      */
-    DemoInfoReturnCode getDemoInfo(const std::string path, DemoInfo & demoInfo);
+    DemoInfoReturnCode open(std::string path);
+
+    std::string GetFileName();
+    std::string GetMapName();
+    std::string GetClientName();
+    std::string GetServerName();
+    float GetPlaybackTime();
+    int GetNumTicks();
+    std::vector<DemoEvent> GetEvents();
+private:
+    fs::path fileName;
+    std::string mapName;
+    std::string clientName;
+    std::string serverName;
+    float playbackTime;
+    int numTicks;
+    std::vector<DemoEvent> events;
+
+    void LoadEvents();
+};
+
+std::vector<HLDemo> getDemosInDirectory(const std::string path);
+
 }
 #endif // HLDEMO_H
