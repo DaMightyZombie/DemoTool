@@ -23,7 +23,7 @@ SOURCES += \
 HEADERS += \
     include/json.hpp \
     src/hldemo.hpp \
-    src/mainwindow.hpp
+    src/mainwindow.h
 
 FORMS += \
     src/mainwindow.ui
