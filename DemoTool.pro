@@ -16,12 +16,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/demolistmodel.cpp \
     src/hldemo.cpp \
     src/main.cpp \
     src/mainwindow.cpp
 
 HEADERS += \
     include/json.hpp \
+    src/demolistmodel.hpp \
     src/hldemo.hpp \
     src/mainwindow.h
 
