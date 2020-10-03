@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSortFilterProxyModel>
+
+#include "demolistmodel.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,5 +20,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    DemoListModel * demoListModel;
+    QSortFilterProxyModel * proxyModel;
 };
 #endif // MAINWINDOW_H
