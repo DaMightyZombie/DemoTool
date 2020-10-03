@@ -1,10 +1,6 @@
-#include "mainwindow.h"
-#include "hldemo.h"
-
-#include <stdio.h>
-#include <string>
-
 #include <QApplication>
+
+#include "mainwindow.h"
 
 using namespace HLDemo;
 
