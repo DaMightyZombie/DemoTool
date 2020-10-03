@@ -10,7 +10,6 @@
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
-
 namespace HLDemo {
 HLDemo::HLDemo()
 {
@@ -56,7 +55,8 @@ DemoInfoReturnCode HLDemo::open(std::string path)
 
 void HLDemo::LoadEvents()
 {
-    fs::path jsonPath = this->fileName.replace_extension(".json");
+    fs::path jsonPath = this->fileName;
+    jsonPath.replace_extension(".json");
     if (!fs::exists(jsonPath)) {
         return;
     }
