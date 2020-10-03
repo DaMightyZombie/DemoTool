@@ -113,4 +113,9 @@ std::string HLDemo::GetServerName(){return this->serverName;}
 float HLDemo::GetPlaybackTime(){return this->playbackTime;}
 int HLDemo::GetNumTicks(){return this->numTicks;}
 
+std::vector<DemoEvent> *HLDemo::GetEvents()
+{
+    return & events;
+}
+
 }

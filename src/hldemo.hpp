@@ -7,7 +7,6 @@
 
 namespace fs = std::filesystem;
 
-
 namespace HLDemo
 {
 enum DemoInfoReturnCode
@@ -47,7 +46,7 @@ public:
     std::string GetServerName();
     float GetPlaybackTime();
     int GetNumTicks();
-    std::vector<DemoEvent> GetEvents();
+    std::vector<DemoEvent> * GetEvents();
 private:
     fs::path fileName;
     std::string mapName;
