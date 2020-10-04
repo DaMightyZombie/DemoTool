@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->demoListTable->setSortingEnabled(true);
     ui->demoListTable->resizeColumnsToContents();
     ui->demoListTable->show();
+    setWindowTitle("DemoTool");
 }
 
 MainWindow::~MainWindow()
@@ -30,7 +31,6 @@ MainWindow::~MainWindow()
     delete proxyModel;
     delete ui;
 }
-
 
 void MainWindow::on_lineEdit_FilterDemos_textChanged(const QString &arg1)
 {
