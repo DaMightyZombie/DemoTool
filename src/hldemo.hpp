@@ -16,16 +16,10 @@ enum DemoInfoReturnCode
     INVALID_FILE
 };
 
-enum DemoEventType
-{
-    Killstreak,
-    Bookmark
-};
-
 struct DemoEvent
 {
     int tick;
-    DemoEventType type;
+    std::string type;
     std::string value;
 };
 
@@ -47,6 +41,7 @@ public:
     float GetPlaybackTime();
     int GetNumTicks();
     std::vector<DemoEvent> * GetEvents();
+    void WriteEvents();
 private:
     fs::path fileName;
     std::string mapName;
@@ -55,7 +50,7 @@ private:
     float playbackTime;
     int numTicks;
     std::vector<DemoEvent> events;
-
+    fs::path getJSONPath();
     void LoadEvents();
 };
 

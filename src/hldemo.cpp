@@ -55,8 +55,7 @@ DemoInfoReturnCode HLDemo::open(std::string path)
 
 void HLDemo::LoadEvents()
 {
-    fs::path jsonPath = this->fileName;
-    jsonPath.replace_extension(".json");
+    fs::path jsonPath = getJSONPath();
     if (!fs::exists(jsonPath)) {
         return;
     }
@@ -76,15 +75,7 @@ void HLDemo::LoadEvents()
     this->events.clear();
     for (auto event : j["events"]) {
         DemoEvent newEvent;
-        if (event["name"] == "Killstreak") {
-            newEvent.type = Killstreak;
-        }
-        else if (event["name"] == "Bookmark"){
-            newEvent.type = Bookmark;
-        }
-        else {
-            continue;
-        }
+        newEvent.type = event["name"];
         newEvent.value = event["value"];
         newEvent.tick = event["tick"];
 
@@ -116,6 +107,36 @@ int HLDemo::GetNumTicks(){return this->numTicks;}
 std::vector<DemoEvent> *HLDemo::GetEvents()
 {
     return & events;
+}
+
+void HLDemo::WriteEvents()
+{
+    fs::path jsonPath = getJSONPath();
+    if (events.empty()) {
+        if (fs::exists(jsonPath)) {
+            fs::remove(jsonPath);
+        }
+        return;
+    }
+    json j;
+    j["events"] = json::array();
+    for (DemoEvent event : events) {
+        j["events"] += {
+            {"name", event.type},
+            {"value", event.value},
+            {"tick", event.tick}
+        };
+    }
+    std::ofstream jsonFile;
+    jsonFile.open(getJSONPath());
+    jsonFile << j.dump(1, '\t');
+}
+
+fs::path HLDemo::getJSONPath()
+{
+    fs::path jsonPath = this->fileName;
+    jsonPath.replace_extension(".json");
+    return jsonPath;
 }
 
 }
