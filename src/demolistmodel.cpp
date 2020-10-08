@@ -1,10 +1,11 @@
 #include "demolistmodel.hpp"
+#include "settings.hpp"
+
 
 DemoListModel::DemoListModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
-    demoList = HLDemo::getDemosInDirectory("/home/rasmus/.local/share/Steam/steamapps/common/Team Fortress 2/tf/autodemos/");
-
+    demoList = HLDemo::getDemosInDirectory(Settings::GetSettings()->value("demos_dir").toString().toStdString());
 }
 
 

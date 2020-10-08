@@ -19,13 +19,15 @@ SOURCES += \
     src/demolistmodel.cpp \
     src/hldemo.cpp \
     src/main.cpp \
-    src/mainwindow.cpp
+    src/mainwindow.cpp \
+    src/settings.cpp
 
 HEADERS += \
     include/json.hpp \
     src/demolistmodel.hpp \
     src/hldemo.hpp \
-    src/mainwindow.h
+    src/mainwindow.h \
+    src/settings.hpp
 
 FORMS += \
     src/mainwindow.ui
